@@ -11,7 +11,20 @@ class NewsApi {
   Future<List<Article>> fetchData() async {
     String apiKey = "dff495e34a0d446882c589733aa4456a";
     var url = Uri.parse(
-        'https://newsapi.org/v2/top-headlines?country=eg&category=technology&apiKey=$apiKey');
+        'https://newsapi.org/v2/top-headlines?country=eg&apiKey=$apiKey');
+    var response = await http.get(url);
+    final data = response.body;
+    var jsonData = jsonDecode(data);
+    Articles articles = Articles.fromjson(jsonData);
+    List<Article> articleList =
+        articles.articles.map((e) => Article.fromjson(e)).toList();
+    return articleList;
+  }
+
+  Future<List<Article>> fetchDataByCategory(String category) async {
+    String apiKey = "dff495e34a0d446882c589733aa4456a";
+    var url = Uri.parse(
+        'https://newsapi.org/v2/top-headlines?country=eg&category=$category&apiKey=$apiKey');
     var response = await http.get(url);
     final data = response.body;
     var jsonData = jsonDecode(data);

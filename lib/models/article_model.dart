@@ -8,7 +8,7 @@ class Article {
     required this.articleUrl,
     required this.title,
     this.description,
-    this.imageUrl,
+     this.imageUrl,
   });
   factory Article.fromjson(Map<String, dynamic> jsonData) {
     return Article(
